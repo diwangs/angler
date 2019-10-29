@@ -31,6 +31,7 @@ public class Graph {
     }
     
     public static void printGraph(Graph g){
+      System.out.println("~Graph~");
       System.out.println("Vertices...");
       for (Vertex v : g.getVertices()) {
         System.out.print(v.getLabel() + " ");
@@ -40,6 +41,11 @@ public class Graph {
       for (Edge e : g.getEdges()) {
         System.out.println(e);
       }
+    }
+
+    public static void solveTravelingSalesmanProblem(Graph g){
+      System.out.println("\nTraveling Salesman Problem Solution:");
+      
     }
   
   }

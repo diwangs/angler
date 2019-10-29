@@ -28,6 +28,7 @@ public class GraphDslAntlrSample {
       parser.graph();
       
       Graph.printGraph(g);
+      Graph.solveTravelingSalesmanProblem(g);
   }
 }
 
