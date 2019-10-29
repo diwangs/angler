@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.lang.*;
 
 public class Graph {
 
@@ -43,9 +44,68 @@ public class Graph {
       }
     }
 
+    public static int tsp(int[][] graph, boolean[] v,  
+                   int currPos, int n,  
+                   int count, int cost, int ans)  
+    { 
+  
+        // If last node is reached and it has a link 
+        // to the starting node i.e the source then 
+        // keep the minimum value out of the total cost 
+        // of traversal and "ans" 
+        // Finally return to check for more possible values 
+        if (count == n && graph[currPos][0] > 0)  
+        { 
+            ans = Math.min(ans, cost + graph[currPos][0]); 
+            return ans; 
+        } 
+  
+        // BACKTRACKING STEP 
+        // Loop to traverse the adjacency list 
+        // of currPos node and increasing the count 
+        // by 1 and cost by graph[currPos,i] value 
+        for (int i = 0; i < n; i++)  
+        { 
+            if (v[i] == false && graph[currPos][i] > 0)  
+            { 
+  
+                // Mark as visited 
+                v[i] = true; 
+                ans = tsp(graph, v, i, n, count + 1, 
+                          cost + graph[currPos][i], ans); 
+  
+                // Mark ith node as unvisited 
+                v[i] = false; 
+            } 
+        } 
+        return ans; 
+    } 
+
     public static void solveTravelingSalesmanProblem(Graph g){
       System.out.println("\nTraveling Salesman Problem Solution:");
-      
+      // n is the number of nodes i.e. V 
+      int n = g.getVertices().size(); 
+      // System.out.println(Character.getNumericValue(g.getVertices[0]));
+
+      int[][] graph = new int[n+1][n+1]; 
+
+      for (Edge e : g.getEdges()) {
+        graph[Character.getNumericValue(e.getFromVertex().getLabel().charAt(0)) - 10][Character.getNumericValue(e.getToVertex().getLabel().charAt(0)) - 10] = (int)((double)e.getWeight());
+      }
+
+      // Boolean array to check if a node 
+      // has been visited or not 
+      boolean[] v = new boolean[n]; 
+
+      // Mark 0th node as visited 
+      v[0] = true; 
+      int ans = Integer.MAX_VALUE; 
+
+      // Find the minimum weight Hamiltonian Cycle 
+      ans = tsp(graph, v, 0, n, 1, 0, ans); 
+
+      // Minimum weight Hamiltonian Cycle 
+      System.out.println("Minimum weight Hamiltonian Cycle: " + ans); 
     }
   
   }
